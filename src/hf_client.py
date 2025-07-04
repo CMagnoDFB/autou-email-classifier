@@ -12,14 +12,17 @@ API_URL = (
 
 HEADERS = {"Authorization": f"Bearer {HF_TOKEN}"} if HF_TOKEN else {}
 
-def hf_zero_shot(text: str, labels=("Email produtivo em relação ao trabalho", "Email improdutivo em relação ao trabalho")) -> dict:
+labelProd = "requer uma ação de trabalho ou resposta específica de trabalho."
+labelImprod = "não requer uma ação imediata de trabalho ou resposta específica de trabalho."
+
+def hf_zero_shot(text: str, labels=(labelProd, labelImprod)) -> dict:
     """
     Classifica o texto usando o inferência de modelo zero-shot da Hugging Face.
     Retorna um dicionário com a categoria e a pontuação.
     """
     payload = {
         "inputs": text,
-        "parameters": {"candidate_labels": list(labels)},
+        "parameters": {"candidate_labels": [labels[0], labels[1]], "hypothesis_template": "Este e-mail {}."},
         "options": {"wait_for_model": True}
     }
 
@@ -28,4 +31,5 @@ def hf_zero_shot(text: str, labels=("Email produtivo em relação ao trabalho", 
     data = resp.json()
 
     best = max(zip(data["labels"], data["scores"]), key=lambda t: t[1])
+    print(text)
     return {"label": best[0], "score": best[1]}

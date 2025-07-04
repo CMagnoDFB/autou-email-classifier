@@ -1,0 +1,1 @@
+Olá, estou tentando acessar minha conta no sistema há duas horas, mas recebo a mensagem 'Erro 500: Internal Server Error'. Poderiam verificar o que está acontecendo? Meu ID de usuário é 12345. Agradeço desde já

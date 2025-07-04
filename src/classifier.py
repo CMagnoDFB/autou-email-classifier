@@ -1,4 +1,5 @@
 from src.hf_client import hf_zero_shot
+from src.hf_gen import generate_reply
 
 
 def classify(email_text: str) -> dict:
@@ -9,11 +10,12 @@ def classify(email_text: str) -> dict:
 
     result = hf_zero_shot(email_text)
     categoria = result["label"]
+    confianca = round(result["score"], 2)
 
-    resposta = "RESPOSTA TODO"  # Placeholder para resposta gerada por LLM
+    resposta = generate_reply(email_text, categoria)
 
     return {
         "categoria": categoria,
-        "score": round(result["score"], 2),
-        "resposta": resposta # será gerada por uma LLM
+        "score": confianca,
+        "resposta": resposta
     }

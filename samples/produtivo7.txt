@@ -1,0 +1,5 @@
+Olá equipe de suporte,
+Estou com dificuldades para acessar o módulo de relatórios no sistema X. Ao tentar fazer login, recebo a mensagem de erro "Usuário não autorizado". Meu usuário é "msantos".
+Poderiam me ajudar a resolver isso?
+Obrigada,
+Maria Santos
