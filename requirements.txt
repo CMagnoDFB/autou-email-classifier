@@ -3,3 +3,5 @@ flask==3.0.3
 flask-cors
 python-dotenv 
 requests
+pypdf==4.2.0
+python-magic-bin
