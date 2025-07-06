@@ -7,7 +7,7 @@ import { MdOutlineSettings } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function App() {
+export default function Main() {
   const [file, setFile] = useState(null);
   const [hideManual, setHideManual] = useState(false);
   const [texto, setTexto] = useState("");
