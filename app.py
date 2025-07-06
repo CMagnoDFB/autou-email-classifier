@@ -3,40 +3,34 @@ from flask_cors import CORS
 import magic, io
 from pypdf import PdfReader
 from src.classifier import classify
+from src.utils import extract_text
+
+
 app = Flask(__name__)
 CORS(app)
 
-def extract_text(file_storage):
-    buf = file_storage.read()
-    mime = magic.from_buffer(buf, mime=True)
+@app.route("/extract-text", methods=["POST"])
+def extract_route():
+    """
+    Recebe form-data com 'file' e devolve {'text': ...}
+    """
+    if "file" not in request.files:
+        return jsonify({"error": "Arquivo não enviado"}), 400
 
-    if mime == "text/plain":
-        return buf.decode("utf-8", errors="ignore")
+    try:
+        text = extract_text(request.files["file"])
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
-    if mime == "application/pdf":
-        reader = PdfReader(io.BytesIO(buf))
-        return "\n".join(page.extract_text() or "" for page in reader.pages)
-
-    raise ValueError("Formato não suportado")
+    return jsonify({"text": text})
 
 @app.route("/classify", methods=["POST"])
 def classify_route():
-    # 1) Se veio JSON com 'text', fluxo mais direto
-    if request.is_json:
-        text = request.get_json(force=True).get("text", "")
-        out = classify(text)
-        return jsonify(out)
+    if not request.is_json:
+        return jsonify({"error": "Envie JSON com 'text'"}), 400
 
-    # 2) Form-data com arquivo
-    if "file" in request.files:
-        try:
-            text = extract_text(request.files["file"])
-        except Exception as e:
-            return jsonify({"error": str(e)}), 400
-        out = classify(text)
-        return jsonify(out)
-
-    return jsonify({"error": "Nenhum texto ou arquivo enviado."}), 400
+    text = request.get_json(force=True).get("text", "")
+    return jsonify(classify(text))
 
 
 if __name__ == '__main__':

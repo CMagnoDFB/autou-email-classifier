@@ -8,13 +8,13 @@ const api = axios.create({
 export const classifyEmail = (text) =>
   api.post("/classify", { text }).then((r) => r.data);
 
-export const classifyFile = (file) => {
+export const extractFileText = (file) => {
   const form = new FormData();
   form.append("file", file);
 
   return api
-    .post("/classify", form, {
+    .post("/extract-text", form, {
       headers: { "Content-Type": "multipart/form-data" },
     })
-    .then((r) => r.data);
+    .then((r) => r.data.text); // devolve só o texto
 };
