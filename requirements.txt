@@ -1,6 +1,6 @@
 Flask
 flask-cors
-python-magic-bin
+python-magic
 pypdf
 joblib
 scikit-learn
