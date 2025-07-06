@@ -5,8 +5,8 @@ export default function Header() {
     <header>
       <img src={icon} alt="AutoU Classificador de E-mails" />
       <div className="header-text">
-        <h1>AutoU - Classificador de E-mails</h1>
-        <p>Classifique e responda e-mails de forma automática e inteligente</p>
+        <h1>Classificador de E-mails</h1>
+        <p>Case prático de Desenvolvimento</p>
       </div>
     </header>
   );
