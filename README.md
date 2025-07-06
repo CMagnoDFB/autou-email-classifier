@@ -49,18 +49,21 @@ Notebook Jupyter Lab para criação e salvamento do modelo de Regressão Logíst
 
 ## 📂 Estrutura do projeto
 
-├── app.py # Backend Flask
-├── src/ # Código backend
-│ ├── classifier.py
-│ ├── hf_client.py
-│ ├── hf_gen.py
-│ ├── preprocessing.py
-│ └── utils.py
-├── frontend/ # Frontend Vite/React
-├── notebooks/ # Notebooks para experimentos e treinamento
-│ └── treino.ipynb
-│ └── emails_sinteticos.csv
-├── samples/  
-├── requirements.txt # Dependências mínimas para produção
-├── requirements-dev.txt # Dependências completas para desenvolvimento
+```
+.
+├── app.py                    # Backend Flask
+├── src/                      # Código backend
+│   ├── classifier.py
+│   ├── hf_client.py
+│   ├── hf_gen.py
+│   ├── preprocessing.py
+│   └── utils.py
+├── frontend/                 # Frontend Vite/React
+├── notebooks/                # Notebooks para experimentos e treinamento
+│   ├── treino.ipynb
+│   └── emails_sinteticos.csv
+├── samples/                  # Exemplos de e-mails
+├── requirements.txt          # Dependências mínimas para produção
+├── requirements-dev.txt      # Dependências completas para desenvolvimento
 └── README.md
+```
