@@ -199,3 +199,28 @@ div > p {
   text-align: center;
 }
 
+/* Reseta completamente o botão de fechar do Toastify */
+.Toastify__close-button {
+  all: unset !important;  /* zera absolutamente tudo */
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+  color: #555 !important;
+  opacity: 0.7 !important;
+  width: auto !important;
+  height: auto !important;
+  background: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1 !important;
+  background: none !important;
+  color: #222 !important;
+}

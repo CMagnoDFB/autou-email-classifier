@@ -4,6 +4,8 @@ import { BeatLoader } from "react-spinners";
 import Textarea from "@mui/joy/Textarea";
 import { MdContentCopy } from "react-icons/md";
 import { MdOutlineSettings } from "react-icons/md";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   const [file, setFile] = useState(null);
@@ -113,6 +115,7 @@ export default function App() {
         {resp && (
           <div>
             <h2>Categoria: {resp.categoria}</h2>
+            <h4>Resposta gerada:</h4>
 
             <Textarea
               readOnly
@@ -126,7 +129,19 @@ export default function App() {
             <div className="response">
               <button
                 className="copy-button"
-                onClick={() => navigator.clipboard.writeText(resp.resposta)}
+                onClick={() => {
+                  navigator.clipboard.writeText(resp.resposta);
+                  toast.success("Copiado para a área de transferência!", {
+                    position: "bottom-center",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    progress: undefined,
+                    theme: "light",
+                  });
+                }}
               >
                 <MdContentCopy /> Copiar
               </button>
@@ -163,9 +178,10 @@ export default function App() {
               setModel(e.target.value);
             }}
           />
-          Zero‑Shot (mDeBERTa)
+          Zero‑Shot (mDeBERTa-v3-base-mnli-xnli)
         </label>
       </div>
+      <ToastContainer />
     </>
   );
 }
