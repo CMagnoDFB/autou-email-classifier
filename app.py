@@ -2,12 +2,16 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import magic, io
 from pypdf import PdfReader
-from src.classifier import classify
+import joblib
+from src.classifier import classify_zeroshot, classify_logreg
 from src.utils import extract_text
 
 
 app = Flask(__name__)
 CORS(app)
+
+clf = joblib.load("src/models/modelo_produtivo.joblib")
+vectorizer = joblib.load("src/models/vectorizer.joblib")
 
 @app.route("/extract-text", methods=["POST"])
 def extract_route():
@@ -29,8 +33,18 @@ def classify_route():
     if not request.is_json:
         return jsonify({"error": "Envie JSON com 'text'"}), 400
 
-    text = request.get_json(force=True).get("text", "")
-    return jsonify(classify(text))
+    data = request.get_json(force=True)
+    text = data.get("text", "")
+    model = data.get("model", "zeroshot")
+
+    if model == "reglog":
+        print("Classificando com Regressão Logística...")
+        result = classify_logreg(text)
+    else:
+        print("Classificando com Zero-Shot...")
+        result = classify_zeroshot(text)
+
+    return jsonify(result)
 
 
 if __name__ == '__main__':

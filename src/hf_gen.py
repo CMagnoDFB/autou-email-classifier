@@ -22,7 +22,7 @@ def generate_reply(email_text: str, category: str) -> str:
         str: Resposta gerada pelo modelo LLM.
     """
 
-    if (category == "requer uma ação de trabalho ou resposta específica de trabalho."):
+    if (category == "requer uma ação de trabalho ou resposta específica de trabalho." or category == "Produtivo"):
         
 
         system_pt = (
@@ -35,12 +35,13 @@ def generate_reply(email_text: str, category: str) -> str:
         "4.  Mantenha um tom cortês e prestativo."
         "5.  A resposta deve ser preparada para ser um rascunho a ser revisado e finalizado por um operador humano."
         "6.  Responda sempre em português brasileiro."
+        "7. Sua resposta deve ter no máximo 120 palavras."
 
         "**Formato da Saída:**"
         "Gere apenas o texto da resposta. Não inclua saudações adicionais como 'Atenciosamente' ou assinaturas."     
         )
     
-    elif (category == "não requer uma ação imediata de trabalho ou resposta específica de trabalho."):
+    elif (category == "não requer uma ação imediata de trabalho ou resposta específica de trabalho." or category == "Improdutivo"):
         
 
         system_pt = (
@@ -56,6 +57,8 @@ def generate_reply(email_text: str, category: str) -> str:
         "Gere apenas o texto da resposta. Não inclua saudações adicionais como 'Atenciosamente' ou assinaturas."
         )
 
+    print(f"Gerando resposta para categoria: {category}")
+    
     user_prompt = textwrap.dedent(f"""
         Categoria do e-mail: {category}.
         Email recebido:
